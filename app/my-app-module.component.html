@@ -1,0 +1,14 @@
+<div class="">
+  <div *ngFor="let app of filteredResults" class="app-item">
+    <a href="{{app.url}}" target="_blank">
+      <i class="app-icon app-drag-icon app-drag-icon-size" [class]="app.icon"></i>
+      <div class="app-title">
+        <span class=""> {{ app.title }} </span>
+      </div>
+    </a>
+  </div>
+</div>
+<ngb-pagination [collectionSize]="noOfApps" [maxSize]="pagingSize" [rotate]="true" [(pageSize)]="pagingSize" [(page)]="currentPage"
+  size="sm" (pageChange)="pageChanged($event);" [ellipses]="false" [boundaryLinks]="false" [directionLinks]="true"></ngb-pagination>
+
+<manage-dialog [subApps]="subscribedAppList" [unSubApps]="unSubscribedAppList" (saveCatalog)="saveCatalog($event)"></manage-dialog>
