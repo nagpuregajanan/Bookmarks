@@ -1,7 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { DragulaService, DragulaDirective } from 'ng2-dragula/ng2-dragula';
+import { Component, OnInit } from '@angular/core';
 
 import { ListService } from './list.service';
 import { MyApp } from './my-app';
@@ -11,11 +8,9 @@ import { User } from './user';
 @Component({
   selector: 'my-app-module',
   templateUrl: 'app/my-app-module.component.html',
-  styleUrls: ['app/my-app-module.component.css'],
-  viewProviders: [DragulaService]
-  // providers: [NgbModalRef]
+  styleUrls: ['app/my-app-module.component.css']
 })
-export class MyAppModule {
+export class MyAppModule implements OnInit {
 
   currentPage: number = 1;
   pagingSize: number = 2;

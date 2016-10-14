@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { MyApp } from './my-app';
-import { CurrentUser } from './current-user';
+import { User } from './user';
 import { Catalog } from './app-catalog';
 
 @Injectable()
@@ -30,8 +30,8 @@ export class ListService {
   //     .catch(error => console.log(error));
   // }
 
-  getCurrentUser(): Promise<CurrentUser> {
-    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.currentUser as CurrentUser).catch();
+  getCurrentUser(): Promise<User> {
+    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.currentUser as User).catch();
   }
 
   getCatalogs(): Promise<Catalog[]> {

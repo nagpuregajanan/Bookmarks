@@ -11,11 +11,12 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { AppComponent } from './app.component';
 import { MyAppModule } from './my-app-module.component';
 import { ManageDialog } from './manage-dialog.component';
+import { OAHelper } from './oa-helper.component';
 import { ListService } from './list.service';
 
 @NgModule({
-  imports: [BrowserModule, HttpModule, NgbModule, DragulaModule, InMemoryWebApiModule.forRoot(InMemoryDataService)],
-  declarations: [AppComponent, MyAppModule, ManageDialog],
+  imports: [BrowserModule, HttpModule, NgbModule.forRoot(), DragulaModule, InMemoryWebApiModule.forRoot(InMemoryDataService)],
+  declarations: [AppComponent, MyAppModule, ManageDialog, OAHelper],
   bootstrap: [AppComponent],
   providers: [ListService]
 })
