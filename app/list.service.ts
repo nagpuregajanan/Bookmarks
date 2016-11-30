@@ -6,13 +6,15 @@ import 'rxjs/add/operator/toPromise';
 import { MyApp } from './my-app';
 import { User } from './user';
 import { Catalog } from './app-catalog';
+import { Rule } from './rule';
 
 @Injectable()
 
 export class ListService {
 
-  private myAppsUrl = 'app/paths'; //url to the web api
-  private headers = new Headers({ 'content-type': 'application/json' });
+  private myAppsUrl: string = 'app/paths'; //url to the web api
+  private url: string = 'app/rules'; //url to the web api
+  // private headers = new Headers({ 'content-type': 'application/json' });
 
   constructor(private http: Http) { }
 
@@ -31,14 +33,17 @@ export class ListService {
   // }
 
   getCurrentUser(): Promise<User> {
-    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.currentUser as User).catch();
+    return this.http.get(this.myAppsUrl).toPromise().then((response: any) => response.json().data.currentUser as User).catch(this.errorHandler);
   }
 
   getCatalogs(): Promise<Catalog[]> {
-    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.catalogs as Catalog[]).catch();
+    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.catalogs as Catalog[]).catch(this.errorHandler);
   }
 
   getApps(): Promise<MyApp[]> {
-    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.myApps as MyApp[]).catch();
+    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.myApps as MyApp[]).catch(this.errorHandler);
+  }
+  getRules(): Promise<Rule[]> {
+    return this.http.get(this.myAppsUrl).toPromise().then((response) => response.json().data.rules as Rule[]).catch(this.errorHandler);
   }
 }

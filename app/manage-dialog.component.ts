@@ -14,7 +14,7 @@ import { Catalog } from './app-catalog';
   viewProviders: [DragulaService]
   // providers: [NgbModalRef]
 })
-export class ManageDialog {
+export class ManageDialogComponent {
 
   closeResult: string;
   options: NgbModalOptions = {
@@ -33,19 +33,19 @@ export class ManageDialog {
   @Output() saveCatalog = new EventEmitter<string>();
 
   constructor(private dragulaService: DragulaService, private modalService: NgbModal, private listService: ListService) {
-    dragulaService.drag.subscribe((value) => {
+    dragulaService.drag.subscribe((value: MyApp[]) => {
       // console.log(`drag: ${value[0]}`);
       this.onDrag(value.slice(1));
     });
-    dragulaService.drop.subscribe((value) => {
+    dragulaService.drop.subscribe((value: MyApp[]) => {
       // console.log(`drop: ${value[0]}`);
       this.onDrop(value.slice(1));
     });
-    dragulaService.over.subscribe((value) => {
+    dragulaService.over.subscribe((value: MyApp[]) => {
       // console.log(`over: ${value[0]}`);
       this.onOver(value.slice(1));
     });
-    dragulaService.out.subscribe((value) => {
+    dragulaService.out.subscribe((value: MyApp[]) => {
       // console.log(`out: ${value[0]}`);
       this.onOut(value.slice(1));
     });
@@ -75,23 +75,23 @@ export class ManageDialog {
     })
   }
 
-  private onDrag(args) {
+  private onDrag(args: MyApp[]) {
     let [e, el] = args;
     // do something
   }
 
-  private onDrop(args) {
+  private onDrop(args: MyApp[]) {
     let [e, el] = args;
     // console.log(args);
     // do something
   }
 
-  private onOver(args) {
+  private onOver(args: MyApp[]) {
     let [e, el, container] = args;
     // do something
   }
 
-  private onOut(args) {
+  private onOut(args: MyApp[]) {
     let [e, el, container] = args;
     // do something
   }

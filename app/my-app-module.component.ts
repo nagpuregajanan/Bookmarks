@@ -10,7 +10,7 @@ import { User } from './user';
   templateUrl: 'app/my-app-module.component.html',
   styleUrls: ['app/my-app-module.component.css']
 })
-export class MyAppModule implements OnInit {
+export class MyAppModuleComponent implements OnInit {
 
   currentPage: number = 1;
   pagingSize: number = 2;
@@ -35,10 +35,10 @@ export class MyAppModule implements OnInit {
   }
 
   getCatalog() {
-    this.listService.getCatalogs().then(data => {
-      this.catalog = data.find(cat => this.currentUser.id === cat.UserLoginName);
+    this.listService.getCatalogs().then((data: Catalog[]) => {
+      this.catalog = data.find((cat: Catalog) => this.currentUser.id === cat.UserLoginName);
       this.getUserPersonalization();
-    }, error => console.log(error, "Error getting my aps."));
+    }, (error: any) => console.log(error, "Error getting my aps."));
   }
 
   getUserPersonalization() {
@@ -73,13 +73,13 @@ export class MyAppModule implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listService.getCurrentUser().then(data => {
+    this.listService.getCurrentUser().then((data: User) => {
       this.currentUser = data;
       // get all apps
       this.listService.getApps().then(apps => {
         this.myApps = apps;
         this.getCatalog();
-      }, error => console.log(error, "Error getting my aps."));
-    }, error => console.log(error, "Error getting my aps."));
+      }, (error: any) => console.log(error, "Error getting my aps."));
+    }, (error: any) => console.log(error, "Error getting my aps."));
   }
 }

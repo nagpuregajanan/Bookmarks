@@ -1,29 +1,188 @@
-<ngb-tabset>
-  <ngb-tab title="Simple">
-    <template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-    </template>
-  </ngb-tab>
-  <ngb-tab>
-    <template ngbTabTitle><b>Fancy</b> title</template>
-    <template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-      <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-      craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-      cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-      yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
-      shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
-      sint qui sapiente accusamus tattooed echo park.</p>
-    </template>
-  </ngb-tab>
-  <ngb-tab title="Disabled" [disabled]="true">
-    <template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-    </template>
-  </ngb-tab>
-</ngb-tabset>
+<form (ngSubmit)="onSubmit()" #OAForm="ngForm" *ngIf="active">
+	<ngb-tabset #t="ngbTabset" (tabChange)="beforeChange($event)">
+		<ngb-tab id="firsttab">
+			<template ngbTabTitle><b>Community Contribution</b></template>
+			<template ngbTabContent>
+				<div class="page-header">
+					<h2>Points from vaious sites</h2>
+				</div>
+				<div class="form-group">
+					<label for="stack">Stack</label>
+					<input type="number" class="form-control " id="stack" [(ngModel)]="model.stack" name="stack" (blur)="thisPoints()">
+					<span>{{stackPoints}}</span>
+				</div>
+				<div class="form-group ">
+					<label for="msdn">MSDN</label>
+					<input type="number" class="form-control" id="msdn" [(ngModel)]="model.msdn" name="msdn">
+				</div>
+				<div class="form-group">
+					<label for="exchange">Exchange</label>
+					<input type="number" class="form-control " id="exchange" [(ngModel)]="model.exchange" name="exchange">
+				</div>
+				<hr>
+				<h3>Blogs written/Code Utility developed during this cycle: (you are the best judge for your own blog, Rate it also)</h3>
+				<div class="list-group">
+					<div *ngFor="let b of model.blogs; let i = index" class="list-group-item" [class.disabled-list-item]="i === blogIndex">
+						<div class="col-sm-7">
+							<label class="control-label">URL:</label>
+							<div class="">{{b.url}}</div>
+						</div>
+						<div class="col-sm-3">
+							<label class="control-label">Quality : </label>
+							<div class="">{{b.quality}}</div>
+						</div>
+						<div class="col-sm-2 edit-delete-icon-cont">
+							<span class="fa fa-trash pull-right edit-delete-icon" aria-hidden="true" (click)="deleteBlog(i)" title="Delete this blog."
+								[class.disabled-list-item]="i === blogIndex"></span>
+							<span class="fa fa-pencil-square-o pull-right edit-delete-icon" aria-hidden="true" (click)="editBlog(i)" title="Edit this blog"
+								[class.disabled-list-item]="i === blogIndex"></span>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="blogurl">Add URL</label>
+					<input type="url" class="form-control" id="blogurl" [(ngModel)]="blogToAdd.url" name="blogurl" #blogurl="ngModel" (keyup)="testUrl()">
+					<div class="alert alert-danger" [hidden]="blogurl.pristine || isBlogUrlValid">Enter valid URL</div>
+				</div>
+				<div class="form-group ">
+					<label for="blogquality">Quality of blog</label>
+					<select name="blogquality" id="blogquality" class="form-control" [(ngModel)]="blogToAdd.quality" name="quality">
+          <option *ngFor="let q of qualities" [value]="q">{{q}}</option>
+        </select>
+				</div>
+				<div class="form-group">
+					<button type="button" class="btn btn-default btn-xs add-blog-but" (click)="addBlog()" [disabled]="addBlogButtonText == 'Adding' || addBlogButtonText == 'Saving' || (isBlogUrlValid==false)">
+						<span [hidden]="addBlogButtonText !== 'Adding'"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i></span>
+						<span [hidden]="addBlogButtonText !== 'Saving'"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i></span>
+ 						{{addBlogButtonText}}
+						</button>
+				</div>
+				<div class="checkbox">
+					<label>
+						Are you MVP
+						<input type="checkbox" id="rumvp" [(ngModel)]="model.rumvp " name="rumvp">
+					</label>
+				</div>
+				<div class="form-group pull-right">
+					<input class="btn btn-primary" (click)="submitted=false;t.select( 'secondtab');calPoints();" type="button" value="Next &raquo;"
+						[disabled]="blogurl.dirty && isBlogUrlValid==false">
+				</div>
+			</template>
+		</ngb-tab>
+		<ngb-tab id="secondtab">
+			<template ngbTabTitle><b>Hiring Help</b></template>
+			<template ngbTabContent>
+				<div class="page-header">
+					<h2>Hiring help.</h2>
+				</div>
+				<div class="form-group ">
+					<label for="codechalrev">Number of code challenge reviewed/Interviews Taken</label>
+					<input type="number" class="form-control" id="codechalrev" [(ngModel)]="model.codechalrev " name="codechalrev">
+				</div>
+				<div class="form-group ">
+					<label for="refhired">Reference Hired. Number of candidates</label>
+					<input type="number" class="form-control " id="refhired" [(ngModel)]="model.refhired " name="refhired">
+				</div>
+				<div class="checkbox">
+					<label>
+						Participator of making code challenge/questionair?
+						<input type="checkbox" id="chalmaker" [(ngModel)]="model.chalmaker " name="chalmaker">
+					</label>
+				</div>
+				<div class="form-group pull-right">
+					<input class="btn btn-primary" (click)="submitted=false;t.select( 'thirdtab')" type="button" value="Next &raquo;">
+				</div>
+			</template>
+		</ngb-tab>
+		<ngb-tab [disabled]="false" id="thirdtab">
+			<template ngbTabTitle> <b>Contribution for Organization</b> </template>
+			<template ngbTabContent>
+				<div class="page-header">
+					<h2>Contribution for Organization.</h2>
+				</div>
+				<div class="checkbox">
+					<label>
+						Are you Mentor?
+						<input type="checkbox" id="rumentor" [(ngModel)]="model.rumentor " name="rumentor">
+						</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Contribution in News Letter?
+						<input type="checkbox" id="runewsletter" [(ngModel)]="model.runewsletter " name="runewsletter">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Part of Chair Committe?
+						<input type="checkbox" id="ruchaircom" [(ngModel)]="model.ruchaircom " name="chalmaker">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Part of Food Comimtte?
+						<input type="checkbox" id="rufoodcom" [(ngModel)]="model.rufoodcom " name="rufoodcom">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Any CodeCamp participation?
+						<input type="checkbox" id="rucodecamp" [(ngModel)]="model.rucodecamp " name="rucodecamp">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Training/BrownBag taken?
+						<input type="checkbox" id="rutrainingbrown" [(ngModel)]="model.rutrainingbrown " name="rutrainingbrown">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Part of any Training/Brownbag?
+						<input type="checkbox" id="ruparttrainbrown" [(ngModel)]="model.ruparttrainbrown " name="ruparttrainbrown">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						PUG Speaker/Trainer?
+						<input type="checkbox" id="rupug" [(ngModel)]="model.rupug " name="rupug">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						TechEd/International Conf?
+						<input type="checkbox" id="ruteched" [(ngModel)]="model.ruteched " name="ruteched">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Any Workshop at Colleges?
+						<input type="checkbox" id="rucollegework" [(ngModel)]="model.rucollegework " name="rucollegework">
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						Pre-sales contribution?
+						<input type="checkbox" id="rupresales" [(ngModel)]="model.rupresales " name="rupresales">
+					</label>
+				</div>
+				<div class="form-group ">
+					<label for="othercontribtext">Other Contribution (Please add details and accumulated points for all other contributions you are thinking its eligible for)</label>
+					<input type="text" class="form-control " id="othercontribtext" [(ngModel)]="model.othercontribtext" name="othercontribtext">
+				</div>
+				<div class="form-group ">
+					<label for="othercontribpoints">Point</label>
+					<input type="number" class=" form-control " id="othercontribpoints" [(ngModel)]="model.othercontribpoints " name="othercontribpoints ">
+				</div>
+				<!--<div class="form-group pull-right">
+					<input class="btn btn-primary" (click)="submitted=false;t.select( 'fourthtab')" type="button" value="Next &raquo;">
+				</div>-->
+				<div class="row pull-right">
+					<button class="btn btn-default " (click)="submitted=false;t.select( 'firsttab') "><span aria-hidden="true">&laquo;</span>Review</button>
+					<input class="btn btn-primary pull-right" type="submit" value="Submit">
+				</div>
+			</template>
+		</ngb-tab>
+	</ngb-tabset>
+</form>

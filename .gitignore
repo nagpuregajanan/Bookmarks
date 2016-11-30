@@ -1,19 +1,15 @@
-#Packages
-node_modules/*
-typings/*
-src/node_modules
-
-src/vendors/*
-src/bower_components
-
-### OSX ###
-.DS_Store
-
-.Trashes
-Desktop.ini
-$RECYCLE.BIN/
-.tmp
-
-#Output folder
-dist/*
-js/*
+.idea
+node_modules
+jspm_packages
+npm-debug.*
+link-checker-results.txt
+app/**/*.js
+*.js.map
+e2e/**/*.js
+e2e/**/*.js.map
+_test-output
+_temp
+jsapp
+js
+lib
+source

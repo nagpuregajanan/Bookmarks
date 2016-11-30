@@ -1,0 +1,30 @@
+.add-blog-but span i.fa {
+    color: #000;
+}
+
+.disabled-list-item {
+    cursor: not-allowed !important;
+    opacity: .65 !important;
+}
+.list-group-item:hover {
+    background-color: #f7f7f9;
+}
+.list-group-item {
+    padding: 0.5rem 1.25rem;
+}
+.edit-delete-icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #0275d8;
+}
+.edit-delete-icon:hover {
+    color: #012b50;
+}
+.edit-delete-icon-cont {
+    padding: 1% 0%;
+}
+.page-header {
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;    
+}
