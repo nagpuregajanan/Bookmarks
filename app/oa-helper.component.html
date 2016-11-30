@@ -8,16 +8,16 @@
 				</div>
 				<div class="form-group">
 					<label for="stack">Stack</label>
-					<input type="number" class="form-control " id="stack" [(ngModel)]="model.stack" name="stack" (blur)="thisPoints()">
-					<span>{{stackPoints}}</span>
+					<input type="number" class="form-control " id="stack" [(ngModel)]="model.stack.value" name="stack" (keyup)="checkPoints($event, 'stack', model.stack)">
+					<span>{{model.stack.points}}</span>
 				</div>
 				<div class="form-group ">
 					<label for="msdn">MSDN</label>
-					<input type="number" class="form-control" id="msdn" [(ngModel)]="model.msdn" name="msdn">
+					<input type="number" class="form-control" id="msdn" [(ngModel)]="model.msdn.value" name="msdn">
 				</div>
 				<div class="form-group">
 					<label for="exchange">Exchange</label>
-					<input type="number" class="form-control " id="exchange" [(ngModel)]="model.exchange" name="exchange">
+					<input type="number" class="form-control " id="exchange" [(ngModel)]="model.exchange.value" name="exchange">
 				</div>
 				<hr>
 				<h3>Blogs written/Code Utility developed during this cycle: (you are the best judge for your own blog, Rate it also)</h3>
@@ -61,11 +61,11 @@
 				<div class="checkbox">
 					<label>
 						Are you MVP
-						<input type="checkbox" id="rumvp" [(ngModel)]="model.rumvp " name="rumvp">
+						<input type="checkbox" id="rumvp" [(ngModel)]="model.rumvp.value" name="rumvp">
 					</label>
 				</div>
 				<div class="form-group pull-right">
-					<input class="btn btn-primary" (click)="submitted=false;t.select( 'secondtab');calPoints();" type="button" value="Next &raquo;"
+					<input class="btn btn-primary" (click)="submitted=false;t.select( 'secondtab');" type="button" value="Next &raquo;"
 						[disabled]="blogurl.dirty && isBlogUrlValid==false">
 				</div>
 			</template>
@@ -78,16 +78,16 @@
 				</div>
 				<div class="form-group ">
 					<label for="codechalrev">Number of code challenge reviewed/Interviews Taken</label>
-					<input type="number" class="form-control" id="codechalrev" [(ngModel)]="model.codechalrev " name="codechalrev">
+					<input type="number" class="form-control" id="codechalrev" [(ngModel)]="model.codechalrev.value" name="codechalrev">
 				</div>
 				<div class="form-group ">
 					<label for="refhired">Reference Hired. Number of candidates</label>
-					<input type="number" class="form-control " id="refhired" [(ngModel)]="model.refhired " name="refhired">
+					<input type="number" class="form-control " id="refhired" [(ngModel)]="model.refhired.value" name="refhired">
 				</div>
 				<div class="checkbox">
 					<label>
 						Participator of making code challenge/questionair?
-						<input type="checkbox" id="chalmaker" [(ngModel)]="model.chalmaker " name="chalmaker">
+						<input type="checkbox" id="chalmaker" [(ngModel)]="model.chalmaker.value" name="chalmaker">
 					</label>
 				</div>
 				<div class="form-group pull-right">
@@ -104,82 +104,82 @@
 				<div class="checkbox">
 					<label>
 						Are you Mentor?
-						<input type="checkbox" id="rumentor" [(ngModel)]="model.rumentor " name="rumentor">
+						<input type="checkbox" id="rumentor" [(ngModel)]="model.rumentor.value" name="rumentor">
 						</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Contribution in News Letter?
-						<input type="checkbox" id="runewsletter" [(ngModel)]="model.runewsletter " name="runewsletter">
+						<input type="checkbox" id="runewsletter" [(ngModel)]="model.runewsletter.value" name="runewsletter">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Part of Chair Committe?
-						<input type="checkbox" id="ruchaircom" [(ngModel)]="model.ruchaircom " name="chalmaker">
+						<input type="checkbox" id="ruchaircom" [(ngModel)]="model.ruchaircom.value" name="chalmaker">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Part of Food Comimtte?
-						<input type="checkbox" id="rufoodcom" [(ngModel)]="model.rufoodcom " name="rufoodcom">
+						<input type="checkbox" id="rufoodcom" [(ngModel)]="model.rufoodcom.value" name="rufoodcom">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Any CodeCamp participation?
-						<input type="checkbox" id="rucodecamp" [(ngModel)]="model.rucodecamp " name="rucodecamp">
+						<input type="checkbox" id="rucodecamp" [(ngModel)]="model.rucodecamp.value" name="rucodecamp">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Training/BrownBag taken?
-						<input type="checkbox" id="rutrainingbrown" [(ngModel)]="model.rutrainingbrown " name="rutrainingbrown">
+						<input type="checkbox" id="rutrainingbrown" [(ngModel)]="model.rutrainingbrown.value" name="rutrainingbrown">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Part of any Training/Brownbag?
-						<input type="checkbox" id="ruparttrainbrown" [(ngModel)]="model.ruparttrainbrown " name="ruparttrainbrown">
+						<input type="checkbox" id="ruparttrainbrown" [(ngModel)]="model.ruparttrainbrown.value" name="ruparttrainbrown">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						PUG Speaker/Trainer?
-						<input type="checkbox" id="rupug" [(ngModel)]="model.rupug " name="rupug">
+						<input type="checkbox" id="rupug" [(ngModel)]="model.rupug.value" name="rupug">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						TechEd/International Conf?
-						<input type="checkbox" id="ruteched" [(ngModel)]="model.ruteched " name="ruteched">
+						<input type="checkbox" id="ruteched" [(ngModel)]="model.ruteched.value" name="ruteched">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Any Workshop at Colleges?
-						<input type="checkbox" id="rucollegework" [(ngModel)]="model.rucollegework " name="rucollegework">
+						<input type="checkbox" id="rucollegework" [(ngModel)]="model.rucollegework.value" name="rucollegework">
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
 						Pre-sales contribution?
-						<input type="checkbox" id="rupresales" [(ngModel)]="model.rupresales " name="rupresales">
+						<input type="checkbox" id="rupresales" [(ngModel)]="model.rupresales.value" name="rupresales">
 					</label>
 				</div>
 				<div class="form-group ">
 					<label for="othercontribtext">Other Contribution (Please add details and accumulated points for all other contributions you are thinking its eligible for)</label>
-					<input type="text" class="form-control " id="othercontribtext" [(ngModel)]="model.othercontribtext" name="othercontribtext">
+					<input type="text" class="form-control " id="othercontribtext" [(ngModel)]="model.othercontrib.value" name="othercontribtext">
 				</div>
 				<div class="form-group ">
 					<label for="othercontribpoints">Point</label>
-					<input type="number" class=" form-control " id="othercontribpoints" [(ngModel)]="model.othercontribpoints " name="othercontribpoints ">
+					<input type="number" class=" form-control " id="othercontribpoints" [(ngModel)]="model.othercontrib.points" name="othercontribpoints ">
 				</div>
 				<!--<div class="form-group pull-right">
 					<input class="btn btn-primary" (click)="submitted=false;t.select( 'fourthtab')" type="button" value="Next &raquo;">
 				</div>-->
 				<div class="row pull-right">
-					<button class="btn btn-default " (click)="submitted=false;t.select( 'firsttab') "><span aria-hidden="true">&laquo;</span>Review</button>
+					<button class="btn btn-default " (click)="submitted=false;t.select( 'firsttab')"><span aria-hidden="true">&laquo;</span>Review</button>
 					<input class="btn btn-primary pull-right" type="submit" value="Submit">
 				</div>
 			</template>

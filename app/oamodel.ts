@@ -5,8 +5,8 @@ export class Blog {
   rcPoints: number;
 }
 export class PointsValue {
-  actualValue: any;
-  rcPoints: number;
+  value: any;
+  points: number;
 }
 
 export class OAModel {

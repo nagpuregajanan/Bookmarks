@@ -20,9 +20,8 @@ export class OAHelperComponent implements OnInit {
   qualities: Array<string> = ['Excellent', 'Good', 'Average'];//'Select',
 
   blogs: Array<Blog> = [];
-  pointsValue: PointsValue = {actualValue: null, rcPoints: null};
   blogToAdd: Blog = { url: '', quality: this.qualities[0], show: false, rcPoints: 0 };
-  model = new OAModel(this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.blogs, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue, this.pointsValue);
+  model = new OAModel({value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, this.blogs, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null});
   addBlogButtonText: string = 'Add more blog';
   isBlogUrlValid: boolean = false;
   blogIndex: number = null;
@@ -107,21 +106,44 @@ export class OAHelperComponent implements OnInit {
     // if ($event.nextId === 'bar') {}
     switch ($event.nextId) {
       case "firsttab":
-        this.calPoints();
-        console.log("firsttab");
+        //this.calPoints();
+        //console.log("firsttab");
         break;
       case "secondtab":
-        this.calPoints();
+        //this.calPoints();
         break;
       case "thirdtab":
-        this.calPoints();
+        //this.calPoints();
         break;
       case "fourthtab":
-        this.calPoints();
+        //this.calPoints();
         break;
     }
   };
-  calPoints() {
-    console.log("Cal points.");
+  checkPoints(event: any, selector: string, element: PointsValue) {
+    console.log(selector, element);
+    switch (selector) {
+      case "stack":
+        if(element.value > 0 && element.value < 100) {
+          element.points = 2;
+        } else if (element.value > 99 && element.value < 500) {
+          element.points = 4;
+        } else if(element.value > 499 && element.value < 1000) {
+          element.points = 6;
+        } else {
+          element.points = null;
+        }
+        console.log(selector, element);
+        break;
+      case "secondtab":
+        //this.calPoints();
+        break;
+      case "thirdtab":
+        //this.calPoints();
+        break;
+      case "fourthtab":
+        //this.calPoints();
+        break;
+    }
   }
 }
