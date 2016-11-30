@@ -1,8 +1,6 @@
 export class Blog {
   url: string;
   quality: string;
-  show: boolean;
-  rcPoints: number;
 }
 export class PointsValue {
   value: any;

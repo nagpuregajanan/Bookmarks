@@ -17,11 +17,12 @@ export class OAHelperComponent implements OnInit {
 
   rules: Array<Rule> = [];
   formattedRules: Array<any> = [];
-  qualities: Array<string> = ['Excellent', 'Good', 'Average'];//'Select',
+  qualities: Array<any> = [{text: 'Excellent', value: 2}, {text: 'Good', value: 1}, {text: 'Average', value: 0}];
 
   blogs: Array<Blog> = [];
-  blogToAdd: Blog = { url: '', quality: this.qualities[0], show: false, rcPoints: 0 };
+  blogToAdd: Blog = { url: '', rcPoints: this.qualities[0].value };
   model = new OAModel({value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, this.blogs, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null}, {value: null, points: null});
+
   addBlogButtonText: string = 'Add more blog';
   isBlogUrlValid: boolean = false;
   blogIndex: number = null;
@@ -40,7 +41,8 @@ export class OAHelperComponent implements OnInit {
         tempVar[item.head] = tempArray;
         finalRule = $.extend(true, finalRule, tempVar);
     });
-    console.log(finalRule);
+    this.formattedRules = finalRule; 
+    console.log(this.formattedRules);
   }
 
   ngOnInit(): void {
@@ -66,7 +68,7 @@ export class OAHelperComponent implements OnInit {
       this.addBlogButtonText = 'Saving';
       setTimeout(() => {
         this.model.blogs.splice(this.blogIndex, 1, this.blogToAdd);
-        this.blogToAdd = { url: '', quality: this.qualities[0], show: false, rcPoints: 0 };
+        this.blogToAdd = { url: '', rcPoints: this.qualities[0].value };
         this.addBlogButtonText = 'Add more blog';
         this.active = false;
         setTimeout(() => this.active = true, 0);
@@ -77,7 +79,7 @@ export class OAHelperComponent implements OnInit {
       this.addBlogButtonText = 'Adding';
       setTimeout(() => {
         this.model.blogs.push(this.blogToAdd);
-        this.blogToAdd = { url: '', quality: this.qualities[0], show: false, rcPoints: 0 };
+        this.blogToAdd = { url: '', rcPoints: this.qualities[0].value };
         this.addBlogButtonText = 'Add more blog';
         this.active = false;
         setTimeout(() => this.active = true, 0);
@@ -91,7 +93,7 @@ export class OAHelperComponent implements OnInit {
     console.log(i);
     this.blogIndex = i;
     this.addBlogButtonText = 'Save';
-    this.blogToAdd = { url: this.model.blogs[i].url, quality: this.model.blogs[i].quality, show: this.model.blogs[i].show, rcPoints: this.model.blogs[i].rcPoints };
+    this.blogToAdd = { url: '', rcPoints: this.qualities[0].value };
     this.isBlogUrlValid = true;
   }
 
@@ -121,29 +123,25 @@ export class OAHelperComponent implements OnInit {
     }
   };
   checkPoints(event: any, selector: string, element: PointsValue) {
-    console.log(selector, element);
-    switch (selector) {
-      case "stack":
-        if(element.value > 0 && element.value < 100) {
-          element.points = 2;
-        } else if (element.value > 99 && element.value < 500) {
-          element.points = 4;
-        } else if(element.value > 499 && element.value < 1000) {
-          element.points = 6;
-        } else {
-          element.points = null;
+    //console.log(Math.min.apply(null, ages.filter(checkAdult)));
+    let found: boolean = false;
+
+    for (let x in this.formattedRules[selector]) {
+      if(element.value) {
+        if(parseInt(x) > element.value) {
+          element.points = this.formattedRules[selector][x];
+          found = true;
+          break;
         }
-        console.log(selector, element);
+      } else {
+        element.points = 0;
         break;
-      case "secondtab":
-        //this.calPoints();
-        break;
-      case "thirdtab":
-        //this.calPoints();
-        break;
-      case "fourthtab":
-        //this.calPoints();
-        break;
+      }
     }
+    if(!found) {
+      element.points = this.formattedRules[selector][x];
+    }
+    this.model[selector] = element;
+    console.log(this.model, element);
   }
 }

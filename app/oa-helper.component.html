@@ -8,7 +8,7 @@
 				</div>
 				<div class="form-group">
 					<label for="stack">Stack</label>
-					<input type="number" class="form-control " id="stack" [(ngModel)]="model.stack.value" name="stack" (keyup)="checkPoints($event, 'stack', model.stack)">
+					<input type="number" class="form-control " id="stack" [(ngModel)]="model.stack.value" name="stack" (keyup)="checkPoints($event, 'Stack', model.stack)">
 					<span>{{model.stack.points}}</span>
 				</div>
 				<div class="form-group ">
@@ -47,9 +47,10 @@
 				</div>
 				<div class="form-group ">
 					<label for="blogquality">Quality of blog</label>
-					<select name="blogquality" id="blogquality" class="form-control" [(ngModel)]="blogToAdd.quality" name="quality">
-          <option *ngFor="let q of qualities" [value]="q">{{q}}</option>
+					<select name="blogquality" id="blogquality" class="form-control" [(ngModel)]="blogToAdd.rcPoints" name="quality">
+          <option *ngFor="let q of qualities" [value]="q.value">{{q.text}}</option>
         </select>
+				{{blogToAdd | json}}
 				</div>
 				<div class="form-group">
 					<button type="button" class="btn btn-default btn-xs add-blog-but" (click)="addBlog()" [disabled]="addBlogButtonText == 'Adding' || addBlogButtonText == 'Saving' || (isBlogUrlValid==false)">
