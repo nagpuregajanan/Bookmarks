@@ -16,7 +16,7 @@ import { Rule } from './rule';
 export class OAHelperComponent implements OnInit {
 
   rules: Array<Rule> = [];
-  formattedRules: Array<any> = [];
+  formattedRules: any = {};
   qualities: Array<any> = [{text: 'Excellent', value: 2}, {text: 'Good', value: 1}, {text: 'Average', value: 0}];
 
   blogs: Array<Blog> = [];
@@ -125,8 +125,9 @@ export class OAHelperComponent implements OnInit {
   checkPoints(event: any, selector: string, element: PointsValue) {
     //console.log(Math.min.apply(null, ages.filter(checkAdult)));
     let found: boolean = false;
+    let x: any;
 
-    for (let x in this.formattedRules[selector]) {
+    for (x in this.formattedRules[selector]) {
       if(element.value) {
         if(parseInt(x) > element.value) {
           element.points = this.formattedRules[selector][x];
